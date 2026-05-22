@@ -14,11 +14,21 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-black shadow-sm">
             <div class="container">
-                <a class="navbar-brand text-danger fw-bold fs-3" href="index.html">
+                <a class="navbar-brand fw-bold fs-3" href="index.html">
                     <img src="assets/images/Logo.png" alt="Movie" class="me-2" style="height: 32px; width: auto;" onerror="this.style.display='none';" />MOVIE
                 </a>
-                <div class="d-flex align-items-center ms-auto">
-                    <a href="login.html" class="btn btn-outline-light btn-sm">Đăng xuất</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Trang chủ</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Phim Lẻ</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Phim Bộ</a></li>
+                    </ul>
+                    <div class="d-flex align-items-center">
+                        <a href="login.html" class="btn btn-danger">Đăng nhập</a>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -77,6 +87,6 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-   
+    <script src="assets/js/main.js"></script> </body>
 </body>
 </html>

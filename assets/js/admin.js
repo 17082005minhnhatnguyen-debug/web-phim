@@ -11,16 +11,54 @@ document.addEventListener("DOMContentLoaded", function() {
     if (isLoggedIn === "true" && loginButton) {
         
         // Bước 3.1: Kiểm tra vai trò để tạo các tùy chọn menu tương ứng
-        let menuItemsHTML = '';
+        let menuItemsHTML = `
+            <li><a class="dropdown-item" href="profile.html"><i class="fas fa-id-card me-2"></i>Thông tin tài khoản</a></li>
+            <li><a class="dropdown-item" href="saved-movies.html"><i class="fas fa-heart me-2"></i>Phim đã lưu</a></li>
+            <li><hr class="dropdown-divider"></li>
+        `;
         
         // CHỈ KHI LÀ ADMIN MỚI CÓ TÙY CHỌN VÀO TRANG QUẢN TRỊ
-        if (userRole === "admin") {
+       if (userRole === "admin") {
             menuItemsHTML += `
                 <li><a class="dropdown-item" href="admin/index.html"><i class="fas fa-tachometer-alt me-2"></i>Trang quản trị Admin</a></li>
                 <li><hr class="dropdown-divider"></li>
             `;
         }
         
+        // TÙY CHỌN ĐĂNG XUẤT NẰM CUỐI CÙNG
+        menuItemsHTML += `
+            <li><a class="dropdown-item text-danger" href="#" id="logout-btn"><i class="fas fa-sign-out-alt me-2"></i>Đăng xuất</a></li>
+        `;
+        document.addEventListener("DOMContentLoaded", function() {
+    // 1. Xử lý chức năng Thêm phim
+    const formAddMovie = document.getElementById('form-add-movie');
+    if (formAddMovie) {
+        formAddMovie.addEventListener('submit', function(e) {
+            e.preventDefault(); 
+            alert('Đã thêm phim mới thành công!');
+            const modalElement = document.getElementById('addMovieModal');
+            const modalInstance = bootstrap.Modal.getInstance(modalElement);
+            modalInstance.hide();
+            formAddMovie.reset();
+        });
+    }
+
+    // 2. Xử lý chức năng ĐĂNG XUẤT ở khu vực Admin
+    const adminLogoutBtn = document.querySelector('.admin-sidebar-link.logout');
+    if (adminLogoutBtn) {
+        adminLogoutBtn.addEventListener('click', function(e) {
+            e.preventDefault(); // Ngăn hành vi chuyển trang ngay lập tức của thẻ <a>
+            
+            // Xóa sạch trạng thái đăng nhập trong bộ nhớ
+            localStorage.removeItem("isLoggedIn");
+            localStorage.removeItem("userName");
+            localStorage.removeItem("userRole");
+            
+            alert("Đã đăng xuất khỏi tài khoản Admin an toàn!");
+            window.location.href = "../index.html"; // Đẩy về trang chủ bên ngoài
+        });
+    }
+});
         // TÀI KHOẢN NÀO CŨNG CÓ TÙY CHỌN ĐĂNG XUẤT
         menuItemsHTML += `
             <li><a class="dropdown-item text-danger" href="#" id="logout-btn"><i class="fas fa-sign-out-alt me-2"></i>Đăng xuất</a></li>
@@ -56,5 +94,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 window.location.reload(); // Tải lại trang để hiện lại nút Đăng nhập
             });
         }
+        const bannerRegisterBtns = document.querySelectorAll('.carousel-inner a[href="login.html"]');
+        bannerRegisterBtns.forEach(function(btn) {
+            btn.style.display = 'none'; // Giấu nút đi
+        });
     }
 });

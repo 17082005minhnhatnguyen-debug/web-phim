@@ -87,13 +87,21 @@
         const dbPass = localStorage.getItem("db_password");
         const dbName = localStorage.getItem("db_fullname");
 
+        if (inputEmail === "anhtoiday@gmail.com" && inputPass === "admin.123") {
+        localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("userName", "Quản trị viên");
+        localStorage.setItem("userRole", "admin"); // Đánh dấu vai trò admin
+
+        alert("Đăng nhập quyền Admin thành công! Chuyển hướng đến Dashboard...");
+        window.location.href = "admin/index.html"; // Vào thẳng trang admin
+        }
         // Kiểm tra xem nhập có đúng tài khoản đã đăng ký không
-        if (inputEmail === dbEmail && inputPass === dbPass) {
+        else if (inputEmail === dbEmail && inputPass === dbPass) {
             
             // LƯU TRẠNG THÁI ĐĂNG NHẬP VÀ TÊN NGƯỜI DÙNG THẬT
             localStorage.setItem("isLoggedIn", "true");
             localStorage.setItem("userName", dbName); 
-
+            localStorage.setItem("userRole", "user");
             alert("Đăng nhập thành công! Chào mừng " + dbName);
             window.location.href = "index.html"; // Chuyển về trang chủ
         } 

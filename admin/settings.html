@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Quản lý Phim</title>
+    <script>
+        // CHỐT CHẶN BẢO MẬT: Kiểm tra quyền trước khi tải giao diện
+        (function () {
+            const isLoggedIn = localStorage.getItem("isLoggedIn");
+            const userRole = localStorage.getItem("userRole");
+
+            // Nếu chưa đăng nhập HOẶC tài khoản không phải là admin
+            if (isLoggedIn !== "true" || userRole !== "admin") {
+                alert("Cảnh báo: Bạn không có quyền truy cập vào khu vực quản trị!");
+                window.location.href = "../index.html"; // Đá người dùng quay ngược ra trang chủ bên ngoài
+            }
+        })();
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+
+    <style>
+        body { background-color: #f4f6f9; color: #333; }
+        .sidebar { min-height: 100vh; background-color: #212529; }
+        .sidebar a {
+            color: #c2c7d0;
+            text-decoration: none;
+            padding: 12px 15px;
+            display: block;
+            transition: 0.3s;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+        .sidebar a:hover,
+        .sidebar a.active {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        .admin-sidebar-link.logout {
+            margin-top: 6px;
+        }
+    </style>
+</head>
+<body>
+    <div class="d-flex">
+        <aside class="sidebar p-3" style="width: 250px;">
+            <!-- Logo -->
+            <div class="text-center mb-4">
+                <div class="d-inline-flex align-items-center gap-2">
+                    <i class="fas fa-film text-danger"></i>
+                    <span class="text-white fw-bold" style="letter-spacing: 0.5px;">ADMIN MOVIE</span>
+                </div>
+            </div>
+
+            <!-- Menu -->
+            <nav class="d-flex flex-column gap-2">
+                <a href="dashboard.html" class="admin-sidebar-link">
+                    <i class="fas fa-tachometer-alt me-2"></i>
+                    <span>Bảng điều khiển</span>
+                </a>
+
+                <a href="index.html" class="admin-sidebar-link active" aria-current="page">
+                    <i class="fas fa-film me-2"></i>
+                    <span>Quản lý Phim</span>
+                </a>
+
+                <a href="users.html" class="admin-sidebar-link">
+                    <i class="fas fa-users me-2"></i>
+                    <span>Quản lý Người dùng</span>
+                </a>
+
+                <a href="settings.html" class="admin-sidebar-link">
+                    <i class="fas fa-cog me-2"></i>
+                    <span>Cài đặt</span>
+                </a>
+
+                <div class="mt-2 pt-2 border-top border-secondary">
+                    <a href="../index.html" class="admin-sidebar-link logout" style="color: #dc3545;">
+                        <i class="fas fa-sign-out-alt me-2"></i>
+                        <span>Đăng xuất</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <div class="flex-grow-1 p-4">
+            <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom">
+                
+                    <h3 class="fw-bold m-0">Cài đặt hệ thống</h3>
+                    
+                
+                <a href="../index.html" class="btn btn-outline-dark btn-sm">
+                    <i class="fas fa-external-link-alt me-1"></i> Xem giao diện Web
+                </a>
+            </div>
+
+            <div class="bg-white p-4 rounded shadow-sm">
+                <h4 class="mb-3">Cài đặt hệ thống</h4>
+
+                <form id="system-settings-form">
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label for="site-name" class="form-label">Tên Website</label>
+                            <input type="text" class="form-control" id="site-name" name="siteName" value="Movie Project" />
+                        </div>
+
+                        <div class="col-12">
+                            <label for="admin-email" class="form-label">Email quản trị viên</label>
+                            <input type="email" class="form-control" id="admin-email" name="adminEmail" value="admin@example.com" />
+                        </div>
+
+                        <div class="col-12">
+                            <label for="seo-description" class="form-label">Mô tả SEO</label>
+                            <textarea class="form-control" id="seo-description" name="seoDescription" rows="4">Nền tảng xem phim trực tuyến với giao diện tối ưu.</textarea>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="maintenance-mode" name="maintenanceMode" />
+                                <label class="form-check-label" for="maintenance-mode">Bật chế độ bảo trì</label>
+                            </div>
+                        </div>
+
+                        <div class="col-12 d-flex justify-content-end">
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-save me-2"></i>Lưu thay đổi
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/admin.js"></script>
+</body>
+</html>
+

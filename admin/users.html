@@ -91,7 +91,7 @@
         <div class="flex-grow-1 p-4">
             <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom">
                 
-                    <h3 class="fw-bold m-0">Quản lý Phim</h3>
+                    <h3 class="fw-bold m-0">Quản lý Người dùng</h3>
                     
                 
                 <a href="../index.html" class="btn btn-outline-dark btn-sm">
@@ -101,10 +101,7 @@
 
             <div class="bg-white p-4 rounded shadow-sm">
                 <div class="d-flex align-items-center justify-content-between mb-3">
-                    <h4 class="m-0">Danh sách phim</h4>
-                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#addMovieModal">
-                        <i class="fas fa-plus me-1"></i> Thêm mới
-                    </button>
+                    <h4 class="m-0">Danh sách User</h4>
                 </div>
 
                 <div class="table-responsive">
@@ -112,28 +109,30 @@
                         <thead>
                             <tr>
                                 <th style="width: 70px;">ID</th>
-                                <th style="width: 120px;">Thumbnail</th>
-                                <th>Tên phim</th>
-                                <th>Thể loại</th>
-                                <th style="width: 90px;">Năm SX</th>
-                                <th style="width: 150px;">Hành động</th>
+                                <th style="width: 110px;">Avatar</th>
+                                <th>Họ tên</th>
+                                <th>Email</th>
+                                <th style="width: 140px;">Vai trò</th>
+                                <th style="width: 160px;">Hành động</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>1</td>
                                 <td>
-                                    <img src="https://via.placeholder.com/80x60/1a1a1a/e50914?text=1" alt="Movie 1" class="rounded border" style="width: 80px; height: 60px; object-fit: cover;">
+                                    <img src="https://via.placeholder.com/50" alt="User 1" class="rounded-circle" style="width: 34px; height: 34px; object-fit: cover;">
                                 </td>
-                                <td>Stranger Things</td>
-                                <td>Khoa học viễn tưởng</td>
-                                <td>2019</td>
+                                <td>Boss</td>
+                                <td>anhtoiday@gmail.com</td>
+                                <td>
+                                    <span class="badge bg-dark">Admin</span>
+                                </td>
                                 <td>
                                     <button class="btn btn-sm btn-outline-primary me-2" title="Sửa">
                                         <i class="fas fa-pen"></i>
                                     </button>
-                                    <button class="btn btn-sm btn-outline-danger" title="Xóa">
-                                        <i class="fas fa-trash"></i>
+                                    <button class="btn btn-sm btn-outline-danger" title="Khóa">
+                                        <i class="fas fa-lock"></i>
                                     </button>
                                 </td>
                             </tr>
@@ -141,17 +140,19 @@
                             <tr>
                                 <td>2</td>
                                 <td>
-                                    <img src="https://via.placeholder.com/80x60/1a1a1a/e50914?text=2" alt="Movie 2" class="rounded border" style="width: 80px; height: 60px; object-fit: cover;">
+                                    <img src="https://via.placeholder.com/50" alt="User 2" class="rounded-circle" style="width: 34px; height: 34px; object-fit: cover;">
                                 </td>
-                                <td>Money Heist</td>
-                                <td>Hình sự</td>
-                                <td>2017</td>
+                                <td>Trần Thị B</td>
+                                <td>tranthib@example.com</td>
+                                <td>
+                                    <span class="badge bg-success">User</span>
+                                </td>
                                 <td>
                                     <button class="btn btn-sm btn-outline-primary me-2" title="Sửa">
                                         <i class="fas fa-pen"></i>
                                     </button>
-                                    <button class="btn btn-sm btn-outline-danger" title="Xóa">
-                                        <i class="fas fa-trash"></i>
+                                    <button class="btn btn-sm btn-outline-danger" title="Khóa">
+                                        <i class="fas fa-lock"></i>
                                     </button>
                                 </td>
                             </tr>
@@ -159,17 +160,19 @@
                             <tr>
                                 <td>3</td>
                                 <td>
-                                    <img src="https://via.placeholder.com/80x60/1a1a1a/e50914?text=3" alt="Movie 3" class="rounded border" style="width: 80px; height: 60px; object-fit: cover;">
+                                    <img src="https://via.placeholder.com/50" alt="User 3" class="rounded-circle" style="width: 34px; height: 34px; object-fit: cover;">
                                 </td>
-                                <td>The Witcher</td>
-                                <td>Fantasy</td>
-                                <td>2019</td>
+                                <td>Lê Văn C</td>
+                                <td>levanc@example.com</td>
+                                <td>
+                                    <span class="badge bg-success">User</span>
+                                </td>
                                 <td>
                                     <button class="btn btn-sm btn-outline-primary me-2" title="Sửa">
                                         <i class="fas fa-pen"></i>
                                     </button>
-                                    <button class="btn btn-sm btn-outline-danger" title="Xóa">
-                                        <i class="fas fa-trash"></i>
+                                    <button class="btn btn-sm btn-outline-danger" title="Khóa">
+                                        <i class="fas fa-lock"></i>
                                     </button>
                                 </td>
                             </tr>

@@ -79,7 +79,13 @@
       ok = validateEmail(emailInput, emailError, 'Email') && ok;
       ok = validatePasswordMin6(passwordInput, passwordError, 'Mật khẩu') && ok;
 
-      if (!ok) e.preventDefault();
+      if (!ok) {
+      e.preventDefault();
+  } else {
+      e.preventDefault(); // Ngăn load lại trang
+      alert("Đăng nhập thành công!");
+      window.location.href = "index.html"; // Chuyển hướng về trang chủ
+  }
     });
   }
 

@@ -1,0 +1,68 @@
+/* ================= Trending Movies Hover ================= */
+
+.trending-card {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.trending-card__poster {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.02));
+}
+
+.trending-card__poster img {
+    display: block;
+}
+
+.trending-card__play {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #fff;
+    transition: transform 220ms ease, background 220ms ease, border-color 220ms ease;
+}
+
+.trending-card__body {
+    background: rgba(0, 0, 0, 0.25);
+}
+
+.trending-card__title {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 0.95rem;
+    line-height: 1.2;
+}
+
+.trending-card__year {
+    margin-top: 2px;
+    color: rgba(255, 255, 255, 0.60);
+    font-size: 0.85rem;
+}
+
+/* Hover effect: scale nhẹ + viền sáng lên */
+.trending-card:hover {
+    transform: scale(1.05);
+    border-color: rgba(255, 255, 255, 0.65);
+    box-shadow: 0 0 18px rgba(255, 255, 255, 0.25);
+}
+
+.trending-card:hover .trending-card__play {
+    transform: scale(1.05);
+    background: rgba(220, 53, 69, 0.25);
+    border-color: rgba(220, 53, 69, 0.6);
+}
+

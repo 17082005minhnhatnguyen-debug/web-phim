@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết phim | Web Phim</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/user.css">
+</head>
+<body class="bg-dark text-white">
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-black shadow-sm">
+            <div class="container">
+                <a class="navbar-brand text-danger fw-bold fs-3" href="index.html">
+                    <i class="fas fa-play-circle"></i> MOVIE
+                </a>
+                <div class="d-flex align-items-center ms-auto">
+                    <a href="login.html" class="btn btn-outline-light btn-sm">Đăng xuất</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mt-5">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <img src="https://via.placeholder.com/400x600/1a1a1a/e50914?text=Poster+Phim" alt="Poster Phim" class="img-fluid rounded shadow-lg border border-secondary">
+            </div>
+
+            <div class="col-md-8">
+                <h1 class="fw-bold text-uppercase mb-3">Tên Bộ Phim Siêu Cấp</h1>
+                
+                <div class="d-flex align-items-center mb-4 text-secondary gap-4">
+                    <span><i class="fas fa-calendar-alt text-white"></i> 2026</span>
+                    <span><i class="fas fa-clock text-white"></i> 120 Phút</span>
+                    <span><i class="fas fa-star text-warning"></i> 8.5/10 (IMDb)</span>
+                    <span class="badge bg-danger">HD Vietsub</span>
+                </div>
+
+                <p class="lead" style="line-height: 1.8;">
+                    Đây là khu vực mô tả nội dung bộ phim. Khi thế giới đứng trước bờ vực diệt vong, một nhóm anh hùng phải đứng lên để giải cứu nhân loại. Những pha hành động nghẹt thở, kỹ xảo hoành tráng sẽ khiến bạn không thể rời mắt khỏi màn hình...
+                </p>
+
+                <div class="mt-4 mb-5">
+                    <button class="btn btn-danger btn-lg me-3 px-4 fw-bold">
+                        <i class="fas fa-play me-2"></i> Xem Phim
+                    </button>
+                    <button class="btn btn-outline-light btn-lg px-4">
+                        <i class="fas fa-plus me-2"></i> Thêm vào danh sách
+                    </button>
+                </div>
+
+                <div class="mt-4 mb-5">
+                    <div class="ratio ratio-16x9 border border-secondary rounded" style="overflow: hidden;">
+                        <iframe
+                            class="w-100 h-100"
+                            src="https://youtu.be/Kxr0kflgdtk?si=SxymK6xPatZzoo7s"
+                            title="Trailer" 
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen
+                        ></iframe>
+                    </div>
+                </div>
+                </div>
+
+        </div>
+    </main>
+
+    <footer class="bg-black text-center py-4 mt-5 text-secondary border-top border-dark">
+        <div class="container">
+            <p class="mb-0">&copy; 2026 Movie Project. Được thiết kế dành riêng cho Web Phim.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/player.js"></script>
+</body>
+</html>

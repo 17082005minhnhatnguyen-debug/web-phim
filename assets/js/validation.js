@@ -65,27 +65,43 @@
 
     const emailInput = document.getElementById('login-email');
     const passwordInput = document.getElementById('login-password');
-
     const emailError = document.getElementById('error-login-email');
     const passwordError = document.getElementById('error-login-password');
 
-    // Clear error on input
     emailInput?.addEventListener('input', () => clearError(emailError));
     passwordInput?.addEventListener('input', () => clearError(passwordError));
 
     formLogin.addEventListener('submit', (e) => {
-      let ok = true;
+      e.preventDefault(); // Luôn chặn load lại trang để xử lý bằng JS
 
+      let ok = true;
       ok = validateEmail(emailInput, emailError, 'Email') && ok;
       ok = validatePasswordMin6(passwordInput, passwordError, 'Mật khẩu') && ok;
 
-      if (!ok) {
-      e.preventDefault();
-  } else {
-      e.preventDefault(); // Ngăn load lại trang
-      alert("Đăng nhập thành công!");
-      window.location.href = "index.html"; // Chuyển hướng về trang chủ
-  }
+      if (ok) {
+        const inputEmail = emailInput.value.trim();
+        const inputPass = passwordInput.value;
+
+        // Lấy thông tin từ "Database giả lập" (Bộ nhớ trình duyệt)
+        const dbEmail = localStorage.getItem("db_email");
+        const dbPass = localStorage.getItem("db_password");
+        const dbName = localStorage.getItem("db_fullname");
+
+        // Kiểm tra xem nhập có đúng tài khoản đã đăng ký không
+        if (inputEmail === dbEmail && inputPass === dbPass) {
+            
+            // LƯU TRẠNG THÁI ĐĂNG NHẬP VÀ TÊN NGƯỜI DÙNG THẬT
+            localStorage.setItem("isLoggedIn", "true");
+            localStorage.setItem("userName", dbName); 
+
+            alert("Đăng nhập thành công! Chào mừng " + dbName);
+            window.location.href = "index.html"; // Chuyển về trang chủ
+        } 
+        else {
+            // Nếu nhập sai email hoặc mật khẩu
+            showError(passwordError, "Email hoặc mật khẩu không đúng. (Hoặc bạn chưa đăng ký!)");
+        }
+      }
     });
   }
 
@@ -109,14 +125,26 @@
     confirmInput?.addEventListener('input', () => clearError(confirmError));
 
     formRegister.addEventListener('submit', (e) => {
-      let ok = true;
+      e.preventDefault(); // Chặn load lại trang
 
+      let ok = true;
       ok = validateRequired(fullnameInput, fullnameError, 'Họ tên') && ok;
       ok = validateEmail(emailInput, emailError, 'Email') && ok;
       ok = validatePasswordMin6(passwordInput, passwordError, 'Mật khẩu') && ok;
       ok = validateConfirmPassword(passwordInput, confirmInput, confirmError, 'Mật khẩu') && ok;
 
-      if (!ok) e.preventDefault();
+      if (ok) {
+        // LƯU TOÀN BỘ THÔNG TIN ĐĂNG KÝ VÀO BỘ NHỚ TRÌNH DUYỆT
+        localStorage.setItem("db_fullname", fullnameInput.value.trim());
+        localStorage.setItem("db_email", emailInput.value.trim());
+        localStorage.setItem("db_password", passwordInput.value);
+
+        alert("Đăng ký thành công! Hệ thống đã ghi nhớ tài khoản của bạn.");
+        
+        // Tự động chuyển qua tab Đăng nhập và xóa trắng form đăng ký
+        document.getElementById('tab-login').click();
+        formRegister.reset();
+      }
     });
   }
 

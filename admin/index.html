@@ -23,28 +23,7 @@
     <link rel="stylesheet" href="../assets/css/main.css">
     <link rel="stylesheet" href="../assets/css/admin.css">
 
-    <style>
-        body { background-color: #f4f6f9; color: #333; }
-        .sidebar { min-height: 100vh; background-color: #212529; }
-        .sidebar a {
-            color: #c2c7d0;
-            text-decoration: none;
-            padding: 12px 15px;
-            display: block;
-            transition: 0.3s;
-            border-radius: 5px;
-            margin-bottom: 5px;
-        }
-        .sidebar a:hover,
-        .sidebar a.active {
-            background-color: #dc3545;
-            color: #fff;
-        }
-
-        .admin-sidebar-link.logout {
-            margin-top: 6px;
-        }
-    </style>
+    
 </head>
 <body>
     <div class="d-flex">
@@ -119,7 +98,7 @@
                                 <th style="width: 150px;">Hành động</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="admin-movie-list">
                             <tr>
                                 <td>1</td>
                                 <td>

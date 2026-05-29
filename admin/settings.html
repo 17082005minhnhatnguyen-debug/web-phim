@@ -23,28 +23,6 @@
     <link rel="stylesheet" href="../assets/css/main.css">
     <link rel="stylesheet" href="../assets/css/admin.css">
 
-    <style>
-        body { background-color: #f4f6f9; color: #333; }
-        .sidebar { min-height: 100vh; background-color: #212529; }
-        .sidebar a {
-            color: #c2c7d0;
-            text-decoration: none;
-            padding: 12px 15px;
-            display: block;
-            transition: 0.3s;
-            border-radius: 5px;
-            margin-bottom: 5px;
-        }
-        .sidebar a:hover,
-        .sidebar a.active {
-            background-color: #dc3545;
-            color: #fff;
-        }
-
-        .admin-sidebar-link.logout {
-            margin-top: 6px;
-        }
-    </style>
 </head>
 <body>
     <div class="d-flex">
@@ -64,7 +42,7 @@
                     <span>Bảng điều khiển</span>
                 </a>
 
-                <a href="index.html" class="admin-sidebar-link active" aria-current="page">
+                <a href="index.html" class="admin-sidebar-link" >
                     <i class="fas fa-film me-2"></i>
                     <span>Quản lý Phim</span>
                 </a>
@@ -74,7 +52,7 @@
                     <span>Quản lý Người dùng</span>
                 </a>
 
-                <a href="settings.html" class="admin-sidebar-link">
+                <a href="settings.html" class="admin-sidebar-link active" aria-current="page">
                     <i class="fas fa-cog me-2"></i>
                     <span>Cài đặt</span>
                 </a>

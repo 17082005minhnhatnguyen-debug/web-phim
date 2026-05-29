@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard | Quản lý Phim</title>
     <script>
-        // CHỐT CHẶN BẢO MẬT: Kiểm tra quyền trước khi tải giao diện
+        // Kiểm tra quyền trước khi tải giao diện
         (function () {
             const isLoggedIn = localStorage.getItem("isLoggedIn");
             const userRole = localStorage.getItem("userRole");
@@ -23,28 +23,7 @@
     <link rel="stylesheet" href="../assets/css/main.css">
     <link rel="stylesheet" href="../assets/css/admin.css">
 
-    <style>
-        body { background-color: #f4f6f9; color: #333; }
-        .sidebar { min-height: 100vh; background-color: #212529; }
-        .sidebar a {
-            color: #c2c7d0;
-            text-decoration: none;
-            padding: 12px 15px;
-            display: block;
-            transition: 0.3s;
-            border-radius: 5px;
-            margin-bottom: 5px;
-        }
-        .sidebar a:hover,
-        .sidebar a.active {
-            background-color: #dc3545;
-            color: #fff;
-        }
-
-        .admin-sidebar-link.logout {
-            margin-top: 6px;
-        }
-    </style>
+   
 </head>
 <body>
     <div class="d-flex">
@@ -59,12 +38,12 @@
 
             <!-- Menu -->
             <nav class="d-flex flex-column gap-2">
-                <a href="dashboard.html" class="admin-sidebar-link">
+                <a href="dashboard.html" class="admin-sidebar-link active" aria-current="page">
                     <i class="fas fa-tachometer-alt me-2"></i>
                     <span>Bảng điều khiển</span>
                 </a>
 
-                <a href="index.html" class="admin-sidebar-link active" aria-current="page">
+                <a href="index.html" class="admin-sidebar-link " >
                     <i class="fas fa-film me-2"></i>
                     <span>Quản lý Phim</span>
                 </a>
@@ -207,7 +186,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addMovieModalLabel">Thêm Phim Mới</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
                 </div>
 
                 <div class="modal-body">

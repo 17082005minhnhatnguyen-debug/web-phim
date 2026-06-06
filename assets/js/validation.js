@@ -1,4 +1,3 @@
-
 (function () {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -49,7 +48,6 @@
   }
 
   function validateConfirmPassword(pwdEl, confirmEl, errorEl, label) {
-    // confirmEl required + match
     if (!validateRequired(confirmEl, errorEl, `Nhập lại ${label}`)) return false;
     if (pwdEl.value !== confirmEl.value) {
       showError(errorEl, `Mật khẩu nhập lại không khớp.`);
@@ -57,6 +55,20 @@
     }
     clearError(errorEl);
     return true;
+  }
+
+  // Hàm helper lấy danh sách User hoặc khởi tạo dữ liệu mẫu nếu chưa có
+  function getDbAllUsers() {
+    let users = JSON.parse(localStorage.getItem("db_all_users"));
+    if (!users) {
+      users = [
+        { id: 1, fullname: "Quản trị viên", email: "anhtoiday@gmail.com", password: "admin.123", role: "admin" },
+        { id: 2, fullname: "Trần Thị B", email: "tranthib@example.com", password: "123456", role: "user" },
+        { id: 3, fullname: "Lê Văn C", email: "levanc@example.com", password: "123456", role: "user" }
+      ];
+      localStorage.setItem("db_all_users", JSON.stringify(users));
+    }
+    return users;
   }
 
   function wireLoginValidation() {
@@ -72,7 +84,7 @@
     passwordInput?.addEventListener('input', () => clearError(passwordError));
 
     formLogin.addEventListener('submit', (e) => {
-      e.preventDefault(); // Luôn chặn load lại trang để xử lý bằng JS
+      e.preventDefault();
 
       let ok = true;
       ok = validateEmail(emailInput, emailError, 'Email') && ok;
@@ -82,32 +94,31 @@
         const inputEmail = emailInput.value.trim();
         const inputPass = passwordInput.value;
 
-        // Lấy thông tin từ "Database giả lập" (Bộ nhớ trình duyệt)
-        const dbEmail = localStorage.getItem("db_email");
-        const dbPass = localStorage.getItem("db_password");
-        const dbName = localStorage.getItem("db_fullname");
+        // Lấy danh sách toàn bộ User trong hệ thống để kiểm tra
+        const allUsers = getDbAllUsers();
+        
+        // Tìm tài khoản trùng khớp cả email và password
+        const foundUser = allUsers.find(u => u.email === inputEmail && u.password === inputPass);
 
-        if (inputEmail === "anhtoiday@gmail.com" && inputPass === "admin.123") {
-        localStorage.setItem("isLoggedIn", "true");
-        localStorage.setItem("userName", "Quản trị viên");
-        localStorage.setItem("userRole", "admin"); // Đánh dấu vai trò admin
+        if (foundUser) {
+          // Lưu trạng thái phiên đăng nhập của tài khoản tìm thấy
+          localStorage.setItem("isLoggedIn", "true");
+          localStorage.setItem("userName", foundUser.fullname); 
+          localStorage.setItem("userRole", foundUser.role);
 
-        alert("Đăng nhập quyền Admin thành công! Chuyển hướng đến Dashboard...");
-        window.location.href = "admin/index.html"; // Vào thẳng trang admin
-        }
-        // Kiểm tra xem nhập có đúng tài khoản đã đăng ký không
-        else if (inputEmail === dbEmail && inputPass === dbPass) {
-            
-            // LƯU TRẠNG THÁI ĐĂNG NHẬP VÀ TÊN NGƯỜI DÙNG THẬT
-            localStorage.setItem("isLoggedIn", "true");
-            localStorage.setItem("userName", dbName); 
-            localStorage.setItem("userRole", "user");
-            alert("Đăng nhập thành công! Chào mừng " + dbName);
-            window.location.href = "index.html"; // Chuyển về trang chủ
-        } 
-        else {
-            // Nếu nhập sai email hoặc mật khẩu
-            showError(passwordError, "Email hoặc mật khẩu không đúng. (Hoặc bạn chưa đăng ký!)");
+          // Đồng bộ với các key đơn lẻ để trang profile.html không bị lỗi
+          localStorage.setItem("db_fullname", foundUser.fullname);
+          localStorage.setItem("db_email", foundUser.email);
+
+          if (foundUser.role === "admin") {
+            alert("Đăng nhập quyền Admin thành công! Chuyển hướng đến Dashboard...");
+            window.location.href = "admin/index.html";
+          } else {
+            alert("Đăng nhập thành công! Chào mừng " + foundUser.fullname);
+            window.location.href = "index.html";
+          }
+        } else {
+          showError(passwordError, "Email hoặc mật khẩu không đúng, hoặc tài khoản không tồn tại!");
         }
       }
     });
@@ -133,7 +144,7 @@
     confirmInput?.addEventListener('input', () => clearError(confirmError));
 
     formRegister.addEventListener('submit', (e) => {
-      e.preventDefault(); // Chặn load lại trang
+      e.preventDefault();
 
       let ok = true;
       ok = validateRequired(fullnameInput, fullnameError, 'Họ tên') && ok;
@@ -142,22 +153,39 @@
       ok = validateConfirmPassword(passwordInput, confirmInput, confirmError, 'Mật khẩu') && ok;
 
       if (ok) {
-        // LƯU TOÀN BỘ THÔNG TIN ĐĂNG KÝ VÀO BỘ NHỚ TRÌNH DUYỆT
-        localStorage.setItem("db_fullname", fullnameInput.value.trim());
-        localStorage.setItem("db_email", emailInput.value.trim());
-        localStorage.setItem("db_password", passwordInput.value);
+        const allUsers = getDbAllUsers();
+        const newEmail = emailInput.value.trim();
+
+        // Kiểm tra xem email này đã tồn tại trong mảng chưa
+        const isExist = allUsers.some(u => u.email.toLowerCase() === newEmail.toLowerCase());
+        if (isExist) {
+          showError(emailError, "Email này đã được đăng ký bởi một tài khoản khác!");
+          return;
+        }
+
+        // Tạo đối tượng người dùng mới và push vào mảng công dồn ID
+        const newUser = {
+          id: allUsers.length + 1,
+          fullname: fullnameInput.value.trim(),
+          email: newEmail,
+          password: passwordInput.value,
+          role: "user" // Mặc định tài khoản mới tạo luôn là thành viên (user)
+        };
+
+        allUsers.push(newUser);
+        
+        // Lưu mảng mới cập nhật lại vào localStorage
+        localStorage.setItem("db_all_users", JSON.stringify(allUsers));
 
         alert("Đăng ký thành công! Hệ thống đã ghi nhớ tài khoản của bạn.");
         
-        // Tự động chuyển qua tab Đăng nhập và xóa trắng form đăng ký
         document.getElementById('tab-login').click();
         formRegister.reset();
       }
     });
   }
 
-  // Init
+  // Khởi chạy
   wireLoginValidation();
   wireRegisterValidation();
 })();
-

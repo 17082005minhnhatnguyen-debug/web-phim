@@ -1,4 +1,28 @@
 document.addEventListener("DOMContentLoaded", function() {
+    // --- BẮT ĐẦU ĐOẠN KIỂM TRA BẢO TRÌ ---
+    const isMaintenanceMode = localStorage.getItem("db_maintenance_mode") === "true";
+    const userRoleCheck = localStorage.getItem("userRole");
+
+    // Nếu đang bật bảo trì VÀ người dùng hiện tại KHÔNG PHẢI là admin
+    if (isMaintenanceMode && userRoleCheck !== "admin") {
+        // Xóa sạch nội dung giao diện trang hiện tại
+        document.body.innerHTML = `
+            <div style="min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: #000; color: #fff; text-align: center; padding: 20px;">
+                <i class="fas fa-tools text-danger mb-4" style="font-size: 6rem;"></i>
+                <h1 class="fw-bold mb-3 display-5">Trang web đang bảo trì</h1>
+                <p class="text-white-50 fs-5 mb-4" style="max-width: 600px;">
+                    Chúng tôi đang tiến hành nâng cấp hệ thống để mang lại trải nghiệm xem phim tốt hơn. 
+                    Dữ liệu của bạn vẫn an toàn. Vui lòng quay lại sau ít phút nhé!
+                </p>
+                <a href="login.html" class="btn btn-outline-danger px-4 py-2" style="border-radius: 8px;">
+                    <i class="fas fa-shield-alt me-2"></i>Đăng nhập cho Quản trị viên
+                </a>
+            </div>
+        `;
+        // Dừng việc chạy các đoạn mã JS bên dưới để tránh lỗi
+        return; 
+    }
+    // --- KẾT THÚC ĐOẠN KIỂM TRA BẢO TRÌ ---
     const isLoggedIn = localStorage.getItem("isLoggedIn");
     const userName = localStorage.getItem("userName");
     const userRole = localStorage.getItem("userRole");
@@ -6,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const loginButton = document.querySelector('a[href="login.html"]');
 
     if (isLoggedIn === "true" && loginButton) {
-        // Bước 3.1: Các tùy chọn DÀNH CHO TẤT CẢ MỌI NGƯỜI (Cả User và Admin đều thấy)
+        //  Các tùy chọn DÀNH CHO TẤT CẢ MỌI NGƯỜI (Cả User và Admin đều thấy)
         let menuItemsHTML = `
             <li><a class="dropdown-item" href="profile.html"><i class="fas fa-id-card me-2"></i>Thông tin tài khoản</a></li>
             <li><a class="dropdown-item" href="saved-movies.html"><i class="fas fa-heart me-2"></i>Phim đã lưu</a></li>
@@ -74,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 allMovies = [];
             }
 
-            // Match không phân biệt hoa/thường, so khớp theo phần tử tên
+         
             const found = allMovies.find(m =>
                 String(m.movieName || '').toLowerCase().includes(keyword.toLowerCase())
             );

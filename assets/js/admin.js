@@ -1,6 +1,26 @@
 document.addEventListener('DOMContentLoaded', function () {
   const DB_ALL_MOVIES_KEY = 'db_all_movies';
+// --- 6. Xử lý chức năng Cài đặt hệ thống (Bật/Tắt bảo trì) ---
+const settingsForm = document.getElementById('system-settings-form');
+if (settingsForm) {
+    const maintenanceToggle = document.getElementById('maintenance-mode');
+    
+    // Khôi phục trạng thái nút gạt khi Admin vừa mở trang Cài đặt
+    const isMaintenance = localStorage.getItem('db_maintenance_mode') === 'true';
+    if (maintenanceToggle) {
+        maintenanceToggle.checked = isMaintenance;
+    }
 
+    // Lưu lại cài đặt khi bấm nút "Lưu thay đổi"
+    settingsForm.addEventListener('submit', function (e) {
+        e.preventDefault(); // Ngăn load lại trang
+        
+        if (maintenanceToggle) {
+            localStorage.setItem('db_maintenance_mode', maintenanceToggle.checked);
+            alert('Đã lưu các thay đổi cài đặt hệ thống!');
+        }
+    });
+}
   
 function getDbAllMovies() {
     try {
@@ -55,7 +75,7 @@ function getDbAllMovies() {
           <td>${escapeHtml(movie.id ?? '')}</td>
           <td>
             <img
-              src="${escapeHtml(movie.moviePoster || '')}"
+              src="../${escapeHtml(movie.moviePoster || '')}"
               alt="${escapeHtml(movie.movieName || '')}"
               class="rounded border"
               style="width: 80px; height: 60px; object-fit: cover;">
@@ -169,7 +189,48 @@ function getDbAllMovies() {
       window.location.href = '../index.html';
     });
   }
+// --- ĐOẠN CODE THÊM MỚI ĐỂ QUẢN LÝ USER ĐỘNG ---
+function renderAdminUsers() {
+  const tbody = document.getElementById('admin-user-list');
+  if (!tbody) return; // Nếu không ở trang users.html thì thoát hàm
 
+  // Lấy danh sách từ localStorage hoặc mảng mặc định nếu trống
+  let allUsers = JSON.parse(localStorage.getItem("db_all_users"));
+  if (!allUsers) {
+    allUsers = [
+      { id: 1, fullname: "Quản trị viên", email: "anhtoiday@gmail.com", role: "admin" },
+    ];
+    localStorage.setItem("db_all_users", JSON.stringify(allUsers));
+  }
+
+  // Vẽ HTML động dựa vào dữ liệu thực tế
+  tbody.innerHTML = allUsers.map(user => `
+    <tr>
+        <td>${user.id}</td>
+        <td>
+            <img src="https://via.placeholder.com/50" alt="Avatar" class="rounded-circle" style="width: 34px; height: 34px; object-fit: cover;">
+        </td>
+        <td>${escapeHtml(user.fullname ?? '')}</td>
+        <td>${escapeHtml(user.email ?? '')}</td>
+        <td>
+            <span class="badge ${user.role === 'admin' ? 'bg-dark' : 'bg-success'}">
+              ${user.role === 'admin' ? 'Admin' : 'User'}
+            </span>
+        </td>
+        <td>
+            <button class="btn btn-sm btn-outline-primary me-2" title="Sửa">
+                <i class="fas fa-pen"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-danger" title="Khóa">
+                <i class="fas fa-lock"></i>
+            </button>
+        </td>
+    </tr>
+  `).join('');
+}
+
+// Gọi hàm chạy tự động khi tải trang quản lý người dùng
+renderAdminUsers();
   // 5. Xử lý chức năng Thêm phim (Admin modal)
   const formAddMovie = document.getElementById('form-add-movie');
   if (formAddMovie) {
